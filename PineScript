@@ -1,4 +1,5 @@
-//@version=5 ROHIT GEDAM EMA 6,40
+//ROHIT GEDAM EMA 6,40
+//@version=5 
 strategy("Moving Average Crossover", overlay=true)
 
 // Input parameters
