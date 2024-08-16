@@ -1,0 +1,29 @@
+//@version=5 ROHIT GEDAM EMA 6,40
+strategy("Moving Average Crossover", overlay=true)
+
+// Input parameters
+shortPeriod = input.int(9, title="Short Period", minval=1)
+longPeriod = input.int(40, title="Long Period", minval=1)
+
+// Calculate the moving averages
+shortMA = ta.sma(close, shortPeriod)
+longMA = ta.sma(close, longPeriod)
+
+// Plot the moving averages on the chart
+plot(shortMA, title="Short MA", color=color.blue, linewidth=2)
+plot(longMA, title="Long MA", color=color.red, linewidth=2)
+
+// Define the crossover conditions
+buySignal = ta.crossover(shortMA, longMA)
+sellSignal = ta.crossunder(shortMA, longMA)
+
+// Execute the buy and sell orders
+if (buySignal)
+    strategy.entry("Buy", strategy.long)
+
+if (sellSignal)
+    strategy.entry("Sell", strategy.short)
+
+// Display the buy and sell signals on the chart
+plotshape(series=buySignal, title="Buy Signal", location=location.belowbar, color=color.green, style=shape.labelup, text="BUY")
+plotshape(series=sellSignal, title="Sell Signal", location=location.abovebar, color=color.red, style=shape.labeldown, text="SELL")
